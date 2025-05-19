@@ -1,8 +1,7 @@
 import allure
 from pages.base_page import BasePage
 from locators.main_page_locators import MainPageLocators
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
+
 
 class MainPage(BasePage):
     @allure.step("Подождать загрузки раздела Вопросы о важном")
@@ -41,17 +40,10 @@ class MainPage(BasePage):
     def click_on_logo_samocat(self):
         self.click_on_element(MainPageLocators.LOGO_SAMOCAT)
 
-    @allure.step('Нажать на логотип Яндекс')
-    def click_on_logo_yandex(self):
+    @allure.step('Нажать на логотип Яндекс и перейти на Дзен')
+    def click_on_logo_yandex(self, expected_url):
         self.click_on_element(MainPageLocators.LOGO_YANDEX)
+        return self.switch_and_get_url(expected_url)
 
-    @allure.step('Перейти на вкладку Дзен и получить урл')
-    def switch_and_get_url(self, expected_url, timeout=40):
-        try:
-            WebDriverWait(self.driver, timeout).until(EC.number_of_windows_to_be(2))
-            self.driver.switch_to.window(self.driver.window_handles[-1])
-            WebDriverWait(self.driver, timeout).until(EC.url_to_be(expected_url))
-            current_url = self.driver.current_url
-            return current_url
-        except:
-            return None
+
+

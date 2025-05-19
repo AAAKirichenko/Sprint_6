@@ -1,5 +1,4 @@
 from faker import Faker
-from datetime import datetime
 from datetime import datetime, timedelta
 faker = Faker('ru_RU')
 
